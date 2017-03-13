@@ -34,8 +34,17 @@ Route::post('/question-bank/import', 'backend\QuestionBankController@postImport'
 Route::get('/exam', 'backend\ExamController@getIndex');
 Route::get('/exam/create', 'backend\ExamController@getCreate');
 Route::post('/exam/create', 'backend\ExamController@postCreate');
-Route::get('/exam/questions/{examId}/{subjectId}/{method}', 'backend\ExamController@getQuestions');
-Route::post('/exam/questions', 'backend\ExamController@postQuestions');
+//Route::get('/exam/questions/{examId}/{subjectId}/{method}', 'backend\ExamController@getQuestions');
+//Route::post('/exam/questions', 'backend\ExamController@postQuestions');
+Route::get('/exam/matrix/{examId}', 'backend\ExamController@getMatrix');
+Route::post('/exam/matrix/{examId}', 'backend\ExamController@postMatrix');
+Route::get('/exam/method/{examId}', 'backend\ExamController@getMethod');
+Route::post('/exam/method/{examId}', 'backend\ExamController@postMethod');
+Route::get('/exam/questions/{examMatrixId}/{bankId}', 'backend\ExamController@getQuestions');
+
+Route::get('bank', 'backend\BankController@getIndex');
+Route::get('bank/create', 'backend\BankController@getCreate');
+Route::post('bank/create', 'backend\BankController@postCreate');
 
 /*== Frontend ==*/
 Route::get('/exam/quiz/{exam_id}', 'frontend\ExamController@getQuiz');

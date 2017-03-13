@@ -18,6 +18,18 @@
                     <div class="form-group">
                         <div class="col-md-3"></div>
                         <div class="col-md-6">
+                            <label for="subjectId">Chọn ngân hàng câu hỏi</label>
+                            <select class="form-control" name="questionBankId">
+                                <option value="">Chọn ngân hàng</option>
+                                @foreach($qBanks as $qb)
+                                    <option value="{{ $qb->id }}" }}>{{ $qb->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
                             <label for="subjectId">Chọn môn học</label>
                             <select class="form-control" name="subjectId">
                                 <option value="">Chọn môn học</option>

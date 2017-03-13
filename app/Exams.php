@@ -28,4 +28,8 @@ class Exams extends Model
     public function questions(){
         return $this->belongsToMany('App\Questions', 'exam_question', 'exam_id', 'question_id');
     }
+
+    public function examMatrix(){
+        return $this->hasMany('App\ExamMatrix', 'exam_id');
+    }
 }

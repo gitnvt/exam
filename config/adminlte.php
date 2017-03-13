@@ -142,6 +142,22 @@ return [
                 [
                     'text'    => 'Danh sách',
                     'icon'    => 'list',
+                    'url'     => 'bank',
+                ],
+                [
+                    'text' => 'Thêm mới',
+                    'icon' => 'plus-square-o',
+                    'url'  => 'bank/create',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Import câu hỏi',
+            'icon'    => 'cloud-upload',
+            'submenu' => [
+                [
+                    'text'    => 'Danh sách',
+                    'icon'    => 'list',
                     'url'     => 'question-bank',
                 ],
                 [

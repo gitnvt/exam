@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Answers;
 use App\Levels;
+use App\QuestionBanks;
 use App\Questions;
 use App\Scholastic;
 use App\Semester;
@@ -26,15 +27,18 @@ class QuestionBankController extends Controller
     }
     public function getImport($sub_id = null){
         $subjects = Subjects::orderBy('created_at', 'desc')->get();
+        $qBanks = QuestionBanks::orderBy('name', 'asc')->get();
         return view('backend.question-bank.import',[
             'subjects' => $subjects,
             'subject_id' => $sub_id,
+            'qBanks' => $qBanks
         ]);
     }
 
     public function postImport(Request $request){
         // Get subject id
         $subjectId = $request->get('subjectId');
+        $questionBankId = $request->get('questionBankId');
         $fileUploaded = $request->file('questionBank');
         $media = MediaUploader::fromSource($fileUploaded)->toDestination('uploads', 'question-bank')->upload();
 
@@ -61,11 +65,11 @@ class QuestionBankController extends Controller
             }
 
             // Answer correct
-            $correct = fgets($file);
+            $correct = trim(fgets($file));
             // Term of question
-            $term = fgets($file);
+            $term = trim(fgets($file));
             // Level of question
-            $level = fgets($file);
+            $level = trim(fgets($file));
 
             // Check if term is not exist then create new
             $termRecord = Terms::where('name', $term)->where('subject_id', $subjectId)->first();
@@ -90,13 +94,14 @@ class QuestionBankController extends Controller
                 $level_id = $levelRecord->id;
 
             // Check exist question
-            $question = Questions::where('content', $qText)->where('subject_id', $subjectId)->first();
+            $question = Questions::where('content', $qText)->where('subject_id', $subjectId)->where('bank_id', $questionBankId)->first();
             if(!$question){
                 $newQuestion = new Questions();
                 $newQuestion->subject_id = $subjectId;
                 $newQuestion->term_id = $term_id;
                 $newQuestion->level = $level_id;
                 $newQuestion->content = $qText;
+                $newQuestion->bank_id = $questionBankId;
                 $newQuestion->save();
 
                 for($i=0; $i<count($choice); $i++){

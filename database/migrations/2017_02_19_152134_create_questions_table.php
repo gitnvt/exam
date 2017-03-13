@@ -19,6 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('term_id');
             $table->integer('level');
             $table->string('content');
+            $table->integer('bank_id');
             $table->timestamps();
         });
     }

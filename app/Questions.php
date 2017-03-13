@@ -13,7 +13,7 @@ class Questions extends Model
      */
     protected $table = 'questions';
 
-    protected $fillable = ['subject_id', 'term_id', 'level', 'content', 'created_time', 'updated_time'];
+    protected $fillable = ['subject_id', 'term_id', 'level', 'content', 'bank_id', 'created_time', 'updated_time'];
 
     public function term(){
         return $this->belongsTo('App\Terms', 'term_id');

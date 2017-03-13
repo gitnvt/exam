@@ -18,10 +18,12 @@ class CreateExamsTable extends Migration
             $table->integer('subject_id');
             $table->string('title');
             $table->text('instruction');
-            $table->boolean('show_answer_correct');
+            $table->boolean('show_answer_correct')->nullable();
+            $table->boolean('shuffle_question')->nullable();
+            $table->boolean('shuffle_answer')->nullable();
             $table->integer('total_time');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
             $table->boolean('status');
             $table->timestamps();
         });
