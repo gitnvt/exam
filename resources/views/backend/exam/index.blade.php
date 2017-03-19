@@ -23,7 +23,7 @@
                     @foreach($data as $d)
                         <tr>
                             <td>{{ $d->id }}</td>
-                            <td>{{ $d->subject->name }}</td>
+                            <td><a href="/exam/{{$d->id}}" target="_blank">{{ $d->subject->name }}</a></td>
                             <td>{{ $d->instruction }}</td>
                             <td>{{ $d->show_answer_correct }}</td>
                             <td>{{ $d->total_time }}</td>

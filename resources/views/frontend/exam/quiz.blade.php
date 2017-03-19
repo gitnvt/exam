@@ -15,11 +15,12 @@
                 </div>
                 <form class="form-horizontal" method="POST" action="/exam/quiz/{{ $data['draftResult']->id }}">
                     {{ csrf_field() }}
+                    <?php $i=1;?>
                     @foreach($data['exam']->questions as $q)
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
-                                    {{ $q->content }}
+                                    Câu {{$i}}: {{ $q->content }}
                                 </h3>
                             </div>
                             <div class="panel-body">
@@ -36,6 +37,7 @@
                                 @endforeach
                             </div>
                         </div>
+                        <?php $i++; ?>
                     @endforeach
                     <button class="btn btn-success">
                         Submit
@@ -45,7 +47,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        <?php $max = date('Y/m/d H:i:s', strtotime($data['draftResult']->start_time) + 8*3600);?>
+        <?php $max = date('Y/m/d H:i:s', strtotime($data['draftResult']->start_time) + 7*3600 + $data['exam']->total_time*60);?>
         $("#countdown-timer").countdown("{{$max}}", function(event) {
                 $(this).text(
                     event.strftime('%H:%M:%S')

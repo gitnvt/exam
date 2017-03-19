@@ -89,3 +89,34 @@ function manualGetQuestions(examMatrixId, bankId) {
         $(tbId + ' table tbody').append(html);
     });
 }
+
+function termSelected(subjectId, termId) {
+    var url = '/exam/levels/' + subjectId + '/' + termId;
+    $.get(url, function(response){
+        var data = $.parseJSON(response);
+        var html = '';
+        $.each(data, function(k, v){
+            console.log(v);
+            html += '<option value="'+ v.level +'" d-name="'+ v.name +'">' + v.name + '(' + v.total + ')' + '</option>';
+        });
+        $('#number-questions').val('');
+        $('#select-level').empty().append(html);
+    });
+}
+
+function removeItem(e) {
+    $(e).parent().parent().remove();
+}
+
+function addNewExRow(termId, termName, levelId, levelName, quantity) {
+    var html = '<tr>';
+    html += '<td>' + termName + '</td>';
+    html += '<td>' + levelName + '</td>';
+    html += '<td><input class="form-control" name="ExamMatrix['+ termId +']['+ levelId +']" ' +
+        'type="number" value="'+ quantity +'"></td>';
+    html += '<td class="text-center"><i style="color: red;cursor: pointer;font-size: 18px;padding-top: 6px;" ' +
+        'class="fa fa-minus-circle remove-item" aria-hidden="true" onclick="removeItem($(this))"></i></td>';
+    html += '</tr>';
+
+    $('#matrix-preview tbody').append(html);
+}

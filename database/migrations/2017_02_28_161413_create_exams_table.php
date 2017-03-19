@@ -21,6 +21,7 @@ class CreateExamsTable extends Migration
             $table->boolean('show_answer_correct')->nullable();
             $table->boolean('shuffle_question')->nullable();
             $table->boolean('shuffle_answer')->nullable();
+            $table->integer('total_questions');
             $table->integer('total_time');
             $table->dateTime('start_time')->nullable();
             $table->dateTime('end_time')->nullable();

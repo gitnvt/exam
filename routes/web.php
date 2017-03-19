@@ -30,6 +30,7 @@ Route::post('/semester/create', 'backend\SemesterController@postCreate');
 Route::get('/question-bank', 'backend\QuestionBankController@getIndex');
 Route::get('/question-bank/import/{sub_id?}', 'backend\QuestionBankController@getImport');
 Route::post('/question-bank/import', 'backend\QuestionBankController@postImport');
+Route::get('/question-bank/generate/{nQuestions}', 'backend\QuestionBankController@getGenerate');
 
 Route::get('/exam', 'backend\ExamController@getIndex');
 Route::get('/exam/create', 'backend\ExamController@getCreate');
@@ -41,6 +42,8 @@ Route::post('/exam/matrix/{examId}', 'backend\ExamController@postMatrix');
 Route::get('/exam/method/{examId}', 'backend\ExamController@getMethod');
 Route::post('/exam/method/{examId}', 'backend\ExamController@postMethod');
 Route::get('/exam/questions/{examMatrixId}/{bankId}', 'backend\ExamController@getQuestions');
+Route::get('/exam/levels/{subjectId}/{termId}', 'backend\ExamController@getLevels');
+Route::get('/exam/{examId}', 'backend\ExamController@getView');
 
 Route::get('bank', 'backend\BankController@getIndex');
 Route::get('bank/create', 'backend\BankController@getCreate');

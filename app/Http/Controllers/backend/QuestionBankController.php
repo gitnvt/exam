@@ -36,6 +36,7 @@ class QuestionBankController extends Controller
     }
 
     public function postImport(Request $request){
+        ini_set('max_execution_time', 300);
         // Get subject id
         $subjectId = $request->get('subjectId');
         $questionBankId = $request->get('questionBankId');
@@ -119,5 +120,28 @@ class QuestionBankController extends Controller
         }
         fclose($file);
         return redirect('/exam');
+    }
+
+    public function getGenerate($nQuestions){
+
+        $terms = ['LTNC1', 'LTNC2', 'LTNC3'];
+        $levels = ['Dễ', 'Trung bình', 'Khó'];
+        $choices = ['1', '2', '3', '4'];
+        $file = 'ltnc.txt';
+        $data = '';
+        for($i=0; $i<$nQuestions; $i++){
+            $data .= 'Câu hỏi lập trình nâng cao số ' . ($i+1) . "\n";
+            $data .= 'Lựa chọn số 1' . "\n";
+            $data .= 'Lựa chọn số 2' . "\n";
+            $data .= 'Lựa chọn số 3' . "\n";
+            $data .= 'Lựa chọn số 4' . "\n";
+            $data .= "\n";
+            $data .= $choices[rand(0, count($choices)-1)] . "\n";
+            $data .= $terms[rand(0, count($terms)-1)] . "\n";
+            $data .= $levels[rand(0, count($levels)-1)];
+            if($i < $nQuestions-1)
+                $data .= "\n" . "\n";
+        }
+        file_put_contents($file, $data);
     }
 }

@@ -106,6 +106,12 @@
                                     {{--</div>--}}
                                 {{--</div>--}}
                             {{--</div>--}}
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label for="Exam[total_questions]">Số lượng câu hỏi</label>
+                                    <input class="form-control" name="Exam[total_questions]" type="text" />
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <div class="col-md-4">

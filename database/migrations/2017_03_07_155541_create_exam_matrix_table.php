@@ -19,6 +19,8 @@ class CreateExamMatrixTable extends Migration
             $table->integer('term_id');
             $table->integer('level_id');
             $table->integer('quantity');
+            $table->boolean('is_random')->default(true);
+            $table->integer('bank_id')->nullable();
             $table->timestamps();
         });
     }

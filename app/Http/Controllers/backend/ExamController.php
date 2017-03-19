@@ -11,6 +11,7 @@ use App\Subjects;
 use App\Terms;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Question\Question;
 
 class ExamController extends Controller
@@ -148,17 +149,21 @@ class ExamController extends Controller
                         $dt = explode('-', $val);
                         $bankId = $dt[0];
                         $quantity = $dt[1];
+                        $exMatrix = ExamMatrix::where('exam_id', $examId)
+                            ->where('term_id', $termId)->where('level_id', $lvId)->first();
+                        $exMatrix->bank_id = $bankId;
+                        $exMatrix->save();
 
-                        $questions = Questions::where('subject_id', $exam->subject->id)->where('term_id', $termId)
-                            ->where('level', $lvId)->where('bank_id', $bankId)->get()->toArray();
-                        for($i=0; $i<$quantity; $i++){
-                            $index = rand(0, count($questions) - 1);
-                            $exq = new ExamQuestion();
-                            $exq->exam_id = $examId;
-                            $exq->question_id = $questions[$index]['id'];
-                            $exq->save();
-                            array_splice($questions, $index, 1);
-                        }
+//                        $questions = Questions::where('subject_id', $exam->subject->id)->where('term_id', $termId)
+//                            ->where('level', $lvId)->where('bank_id', $bankId)->get()->toArray();
+//                        for($i=0; $i<$quantity; $i++){
+//                            $index = rand(0, count($questions) - 1);
+//                            $exq = new ExamQuestion();
+//                            $exq->exam_id = $examId;
+//                            $exq->question_id = $questions[$index]['id'];
+//                            $exq->save();
+//                            array_splice($questions, $index, 1);
+//                        }
                     }
                 }
             }
@@ -169,10 +174,16 @@ class ExamController extends Controller
                 $examQ->exam_id = $examId;
                 $examQ->question_id = $m;
                 $examQ->save();
+
+                $q = Questions::where('id', $m)->first();
+                $em = ExamMatrix::where('exam_id', $examId)->where('term_id', $q->term_id)
+                    ->where('level_id', $q->level)->first();
+                $em->is_random = false;
+                $em->save();
             }
         }
 
-        return redirect('/exam');
+        return redirect('/exam/' . $exam->id);
     }
 
     public function getQuestions($examMatrixId, $bankId){
@@ -181,5 +192,23 @@ class ExamController extends Controller
             ->where('term_id', $examMatrix->term_id)->where('level', $examMatrix->level_id)
             ->where('bank_id', $bankId)->with('answers')->get();
         return json_encode($questions);
+    }
+
+    public function getLevels($subjectId, $termId){
+        $result = DB::table('questions')
+            ->leftjoin('levels', 'questions.level', '=', 'levels.id')
+            ->select('questions.level', 'levels.name', DB::raw('count(*) as total'))
+            ->where('questions.subject_id', $subjectId)
+            ->where('questions.term_id', $termId)
+            ->groupBy('level', 'levels.name')
+            ->get();
+        return json_encode($result);
+    }
+
+    public function getView($examId){
+        $exam = Exams::where('id', $examId)->first();
+        return view('backend.exam.view', [
+           'exam' => $exam
+        ]);
     }
 }

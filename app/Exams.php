@@ -18,8 +18,8 @@ class Exams extends Model
      */
     protected $table = 'exams';
 
-    protected $fillable = ['subject_id', 'title', 'instruction', 'show_answer_correct', 'total_time',
-        'start_time', 'end_time', 'status', 'created_time', 'updated_time'];
+    protected $fillable = ['subject_id', 'title', 'instruction', 'show_answer_correct', 'total_questions',
+        'total_time', 'start_time', 'end_time', 'status', 'created_time', 'updated_time'];
 
     public function subject(){
         return $this->belongsTo('App\Subjects', 'subject_id');

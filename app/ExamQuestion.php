@@ -13,5 +13,5 @@ class ExamQuestion extends Model
      */
     protected $table = 'exam_question';
 
-    protected $fillable = ['exam_id', 'question_id', 'created_time', 'updated_time'];
+    protected $fillable = ['exam_id', 'exam_code', 'question_id', 'created_time', 'updated_time'];
 }

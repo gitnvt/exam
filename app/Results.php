@@ -13,7 +13,7 @@ class Results extends Model
      */
     protected $table = 'results';
 
-    protected $fillable = ['exam_id', 'user_id', 'start_time', 'time_spent', 'score', 'draft', 'created_time', 'updated_time'];
+    protected $fillable = ['exam_id', 'exam_code', 'user_id', 'start_time', 'time_spent', 'score', 'draft', 'created_time', 'updated_time'];
 
     public function rsAnswers(){
         return $this->hasMany('App\ResultAnswer', 'result_id');
