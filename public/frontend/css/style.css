@@ -1,4 +1,39 @@
+body{
+    margin-top: 65px;
+}
 label.correct{
     color: blue;
     font-weight: bold;
+}
+
+.quiz-nav{
+    top: 65px;
+}
+.quiz-nav.affix, .quiz-review-nav.affix{
+    width: calc(25% - 30px);
+    top: 65px;
+}
+
+.quiz-nav .panel-body span, .quiz-review-nav .panel-body span{
+    width: calc(10% - 4px);
+    display: inline-block;
+    text-align: center;
+    margin: 5px auto;
+    /*background: #e1e1e1;*/
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 2px;
+}
+
+.quiz-review-nav .panel-body span.correct, .quiz-nav .panel-body span.u-selected{
+    background-color: #00ca6d;
+}
+
+.quiz-review-nav .panel-body span.incorrect{
+    background-color: #9f191f;
+    color: white;
+}
+
+.quiz-nav .panel-body span{
+    background-color: #e6e6e6;
 }

@@ -297,4 +297,8 @@
     opacity: .5;
 }
 
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th{
+    border: 1px solid #ccc;
+}
+
 

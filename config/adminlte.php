@@ -32,7 +32,7 @@ return [
 
     'logo' => '<b>Online</b> Exam',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>OL</b>EX',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
 
     'logout_url' => 'logout',
 
@@ -197,11 +197,38 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Thí sinh',
+            'icon'    => 'list',
+            'submenu' => [
+                [
+                    'text'    => 'Danh sách thí sinh',
+                    'url'     => 'examinee/list',
+                ],
+                [
+                    'text' => 'Import',
+                    'url'  => 'examinee/import',
+                ],
+                [
+                    'text' => 'Sinh mã đề',
+                    'url'  => 'examinee/generate-exam-code',
+                ],
+            ],
+        ],
         'SYSTEM',
         [
-            'text' => 'Log',
-            'url'  => '#',
-            'icon' => 'history',
+            'text'    => 'Log',
+            'icon'    => 'history',
+            'submenu' => [
+                [
+                    'text'    => 'Log hệ thống',
+                    'url'     => 'log/system',
+                ],
+                [
+                    'text' => 'Log thi',
+                    'url'  => 'log/quiz',
+                ],
+            ],
         ],
     ],
 

@@ -1,10 +1,23 @@
 @extends('frontend.layout.default')
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <div class="panel panel-success quiz-nav affix">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Quiz Navigation
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        @foreach($questions as $k => $q)
+                            <span class="q-{{$q->id}}" onclick="scrollToQuestion({{$q->id}})">{{ $k+1 }}</span>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
 
-            <div class="col-md-10 column">
+            <div class="col-md-9 column">
                 <div class="row">
                     <div class="col-md-3">
                         <p class="lead">Thời gian làm bài: </p>
@@ -16,8 +29,8 @@
                 <form class="form-horizontal" method="POST" action="/exam/quiz/{{ $data['draftResult']->id }}">
                     {{ csrf_field() }}
                     <?php $i=1;?>
-                    @foreach($data['exam']->questions as $q)
-                        <div class="panel panel-primary">
+                    @foreach($questions as $q)
+                        <div class="panel panel-primary" id="qs-{{$q->id}}">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
                                     Câu {{$i}}: {{ $q->content }}
@@ -47,7 +60,7 @@
         </div>
     </div>
     <script type="text/javascript">
-        <?php $max = date('Y/m/d H:i:s', strtotime($data['draftResult']->start_time) + 7*3600 + $data['exam']->total_time*60);?>
+        <?php $max = date('Y/m/d H:i:s', strtotime($data['draftResult']->start_time) + $data['exam']->total_time*60);?>
         $("#countdown-timer").countdown("{{$max}}", function(event) {
                 $(this).text(
                     event.strftime('%H:%M:%S')

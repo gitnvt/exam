@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
         Plank\Mediable\MediableServiceProvider::class,
+        App\Components\Activitylog\ActivitylogServiceProvider::class,
     ],
 
     /*
@@ -227,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'MediaUploader' => Plank\Mediable\MediaUploaderFacade::class,
+        'Activity' => 'App\Components\Activitylog\ActivitylogFacade',
 
     ],
 

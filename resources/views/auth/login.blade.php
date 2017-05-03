@@ -1,68 +1,56 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Đăng nhập hệ thống quản trị</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="/common/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FONTAWESOME STYLES-->
+    <link href="/common/css/font-awesome.css" rel="stylesheet"/>
+    <!-- CUSTOM STYLES-->
+    <link href="/auth/login.css" rel="stylesheet"/>
 
-@section('content')
+    <!-- JQUERY SCRIPTS -->
+    <script src="/common/js/jquery-2.2.3.min.js"></script>
+
+    <script src="/common/js/bootstrap.js"></script>
+
+    <script src="/common/js/jquery.countdown.min.js"></script>
+</head>
+<body>
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    <h2 class="text-center" style="color: white">Đăng nhập hệ thống</h2>
+    <div class="card card-container">
+        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" method="POST" action="{{ route('login') }}">
+            {{ csrf_field() }}
+            <span id="reauth-email" class="reauth-email"></span>
+            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address"
+                   value="{{ old('email') }}" required autofocus>
+            @if ($errors->has('email'))
+                <span class="help-block">
+                   <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+            @if ($errors->has('password'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+            <div id="remember" class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember me
+                </label>
             </div>
-        </div>
-    </div>
-</div>
-@endsection
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+        </form><!-- /form -->
+        <a href="#" class="forgot-password">
+            Forgot the password?
+        </a>
+    </div><!-- /card-container -->
+</div><!-- /container -->
+</body>

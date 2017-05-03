@@ -109,14 +109,28 @@ function removeItem(e) {
 }
 
 function addNewExRow(termId, termName, levelId, levelName, quantity) {
-    var html = '<tr>';
-    html += '<td>' + termName + '</td>';
-    html += '<td>' + levelName + '</td>';
-    html += '<td><input class="form-control" name="ExamMatrix['+ termId +']['+ levelId +']" ' +
-        'type="number" value="'+ quantity +'"></td>';
-    html += '<td class="text-center"><i style="color: red;cursor: pointer;font-size: 18px;padding-top: 6px;" ' +
-        'class="fa fa-minus-circle remove-item" aria-hidden="true" onclick="removeItem($(this))"></i></td>';
-    html += '</tr>';
+    if($('#' + termId).length){
+        var rowSpan = $('#' + termId + ' th').attr('rowspan');
+        $('#' + termId + ' th').attr('rowspan', parseInt(rowSpan) + 1);
+        var html = '<tr>';
+        // html += '<th>' + termName + '</th>';
+        html += '<td>' + levelName + '</td>';
+        html += '<td><input class="form-control" name="ExamMatrix['+ termId +']['+ levelId +']" ' +
+            'type="number" value="'+ quantity +'"></td>';
+        html += '<td class="text-center"><i style="color: red;cursor: pointer;font-size: 18px;padding-top: 6px;" ' +
+            'class="fa fa-minus-circle remove-item" aria-hidden="true" onclick="removeItem($(this))"></i></td>';
+        html += '</tr>';
+        $(html).insertAfter('#' + termId);
+    }else{
+        var html = '<tr id="'+termId+'">';
+        html += '<th rowspan="1" style="text-align: center; vertical-align: middle;">' + termName + '</th>';
+        html += '<td>' + levelName + '</td>';
+        html += '<td><input class="form-control" name="ExamMatrix['+ termId +']['+ levelId +']" ' +
+            'type="number" value="'+ quantity +'"></td>';
+        html += '<td class="text-center"><i style="color: red;cursor: pointer;font-size: 18px;padding-top: 6px;" ' +
+            'class="fa fa-minus-circle remove-item" aria-hidden="true" onclick="removeItem($(this))"></i></td>';
+        html += '</tr>';
 
-    $('#matrix-preview tbody').append(html);
+        $('#matrix-preview tbody').append(html);
+    }
 }

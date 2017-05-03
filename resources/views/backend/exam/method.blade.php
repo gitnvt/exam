@@ -24,9 +24,17 @@
                         </tr>
                         </thead>
                         <tbody style="background: #eee">
+{{--                        {{dd($exam->examMatrix()->groupBy('term_id')->get())}}--}}
                         @foreach($exam->examMatrix as $em)
+                            <?php
+                                $rowSpan = ($exam->examMatrix()->where('term_id', $em->term_id)->count());
+                            ?>
                             <tr>
-                                <td>{{$em->term->name}}</td>
+                                <?php
+                                    if(!isset($termName) || $termName != $em->term->name){
+                                ?>
+                                    <th rowspan="{{$rowSpan}}" style="text-align: center; vertical-align: middle;">{{$em->term->name}}</th>
+                                <?php }?>
                                 <td>{{$em->level->name}}</td>
                                 <td>{{$em->quantity}}</td>
                                 <td>
@@ -128,6 +136,7 @@
                                     </div>
                                 </td>
                             </tr>
+                            <?php $termName = $em->term->name; ?>
                         @endforeach
                         </tbody>
                     </table>

@@ -18,4 +18,8 @@ class ResultAnswer extends Model
     public function question(){
         return $this->belongsTo('App\Questions', 'question_id');
     }
+
+    public function getAnswer(){
+        return $this->belongsTo('App\Answers', 'answer');
+    }
 }
